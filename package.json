@@ -9,6 +9,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext .tsx,.ts",
+    "gen:index": "node generate-index.js",
     "test": "vitest"
   },
   "author": "Daniel Angelo Tobias",
@@ -83,6 +84,7 @@
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
     "autoprefixer": "^10.4.21",
+    "barrel-cli": "^1.0.0",
     "eslint": "^9.30.1",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
