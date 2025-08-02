@@ -4,4 +4,4 @@ export declare const MyCheckBox: (props: {
     value?: boolean;
     onChangeValue?: (val: boolean) => void;
     msg?: string;
-}) => import("react/jsx-runtime").JSX.Element | null;
+}) => import("react/jsx-runtime").JSX.Element;

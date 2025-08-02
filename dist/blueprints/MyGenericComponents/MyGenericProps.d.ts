@@ -18,10 +18,10 @@ export interface GenericViewProps<T> {
 }
 export declare const defaultViewValues: GenericViewProps<{}>;
 export declare function createGenericViewContext<T>(): {
-    Context: import("react").Context<GenericViewProps<T> | null>;
-    useGenericView: () => GenericViewProps<{}> | GenericViewProps<T>;
+    Context: import("react").Context<GenericViewProps<T>>;
+    useGenericView: () => GenericViewProps<T>;
 };
 export declare function createGenericContext<T>(): {
-    Context: import("react").Context<T | null>;
-    useGeneric: () => NonNullable<T>;
+    Context: import("react").Context<T>;
+    useGeneric: () => T;
 };

@@ -57,7 +57,7 @@ export function useSettings<T>(
   defaultValue: T,
   key: string
 ) {
-  const setting = settingStore.items.find((s) => s.key === key);
+  const setting = settingStore.items.find((s: any) => s.key === key);
   const [state, setState] = useState<T>(() => {
     try {
       const stored = localStorage.getItem(key);
@@ -77,7 +77,7 @@ export function useSettings<T>(
     if (settingStore.items.length === 0) {
       return;
     }
-    const setting = settingStore.items.find((s) => s.key === key);
+    const setting = settingStore.items.find((s: any) => s.key === key);
     const settingId = setting?.id;
     settingId
       ? settingStore.updateItem(settingId, { value: JSON.stringify(state) })

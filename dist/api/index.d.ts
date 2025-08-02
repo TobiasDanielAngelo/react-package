@@ -1,5 +1,5 @@
 import { PaginatedResponse } from "../constants/interfaces";
-export declare function autoFormData(body: Record<string, any>): FormData | Record<string, any>;
+export declare function autoFormData(body: Record<string, any>): Record<string, any> | FormData;
 export declare function getCookie(name: string): string;
 export declare const fetchCSRF: (baseURL: string) => Promise<{
     details: any;
@@ -37,12 +37,12 @@ export declare function fetchItemsRequest<T>(baseURL: string, endpoint: string, 
 export declare function postItemRequest<T>(baseURL: string, endpoint: string, body?: T): Promise<{
     details: any;
     ok: boolean;
-    data: T | null;
+    data: T;
 }>;
 export declare function updateItemRequest<T>(endpoint: string, baseURL: string, itemId: number | string, body: T): Promise<{
     details: any;
     ok: boolean;
-    data: T | null;
+    data: T;
 }>;
 export declare function deleteItemRequest(baseURL: string, endpoint: string, itemId: number | string): Promise<{
     details: any;

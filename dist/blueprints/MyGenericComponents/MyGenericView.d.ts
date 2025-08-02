@@ -9,13 +9,13 @@ export declare const useViewValues: <U extends Object & {
 }, T extends {
     $view: Record<string, any>;
 }>(settingStore: IStore, name: string, obj: T, graphs?: GraphType[]) => {
-    pageDetails: PaginatedDetails | undefined;
-    setPageDetails: import("react").Dispatch<import("react").SetStateAction<PaginatedDetails | undefined>>;
+    pageDetails: PaginatedDetails;
+    setPageDetails: import("react").Dispatch<import("react").SetStateAction<PaginatedDetails>>;
     params: URLSearchParams;
     setParams: SetURLSearchParams;
-    availableGraphs: ("area" | "line" | "bar" | "pie")[];
-    graph: "area" | "line" | "bar" | "pie";
-    setGraph: import("react").Dispatch<import("react").SetStateAction<"area" | "line" | "bar" | "pie">>;
+    availableGraphs: ("area" | "line" | "pie" | "bar")[];
+    graph: "area" | "line" | "pie" | "bar";
+    setGraph: import("react").Dispatch<import("react").SetStateAction<"area" | "line" | "pie" | "bar">>;
     shownFields: (keyof U)[];
     setShownFields: import("react").Dispatch<import("react").SetStateAction<(keyof U)[]>>;
     sortFields: string[];
