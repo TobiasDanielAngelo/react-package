@@ -30,6 +30,9 @@ declare const iconMap: {
     readonly Event: import("@mui/material/OverridableComponent").OverridableComponent<import("@mui/material/SvgIcon").SvgIconTypeMap<{}, "svg">> & {
         muiName: string;
     };
+    readonly Help: import("@mui/material/OverridableComponent").OverridableComponent<import("@mui/material/SvgIcon").SvgIconTypeMap<{}, "svg">> & {
+        muiName: string;
+    };
     readonly FilterAlt: import("@mui/material/OverridableComponent").OverridableComponent<import("@mui/material/SvgIcon").SvgIconTypeMap<{}, "svg">> & {
         muiName: string;
     };

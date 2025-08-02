@@ -85,7 +85,7 @@ export function MyStore<
   baseURL: string,
   slug: string,
   resetOnFetch?: boolean
-) {
+): any {
   @model(`myApp/${keyName}Store`)
   class GenericStore extends Model({
     items: prop<T[]>(() => []),

@@ -40,6 +40,7 @@ import Settings from "@mui/icons-material/Settings";
 import Sunny from "@mui/icons-material/Sunny";
 import FilePresent from "@mui/icons-material/FilePresent";
 import Star from "@mui/icons-material/Star";
+import Help from "@mui/icons-material/Help";
 import DisplaySettings from "@mui/icons-material/DisplaySettings";
 import DynamicForm from "@mui/icons-material/DynamicForm";
 import WarningAmber from "@mui/icons-material/WarningAmber";
@@ -57,6 +58,7 @@ const iconMap = {
     CloudUpload,
     WarningAmber,
     Event,
+    Help,
     FilterAlt,
     Inbox,
     InsertChart,
