@@ -54,8 +54,6 @@ const renderField = (
           {t.function?.(details)}
         </div>
       );
-    case "password":
-      return <MyInput key={key} {...commonProps} isPassword />;
     case "select":
       return (
         <MyDropdownSelector
@@ -103,8 +101,6 @@ const renderField = (
           centered={t.centered}
         />
       );
-    case "color":
-      return <MyColorPicker key={key} {...commonProps} />;
     case "check":
       return <MyCheckBox key={key} {...commonProps} />;
     case "image":
@@ -123,6 +119,8 @@ const renderField = (
           key={key}
         />
       );
+    case "color":
+    case "password":
     case "number":
     case "text":
       return (
@@ -131,6 +129,7 @@ const renderField = (
           {...commonProps}
           value={details[t.name] ?? ""}
           centered={t.centered}
+          type={t.type}
         />
       );
     default:

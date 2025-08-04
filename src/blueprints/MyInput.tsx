@@ -1,3 +1,5 @@
+import { HTMLInputTypeAttribute } from "react";
+
 export const MyInput = (props: {
   hidden?: boolean;
   label?: string;
@@ -9,6 +11,7 @@ export const MyInput = (props: {
   isPassword?: boolean;
   optional?: boolean;
   msg?: string;
+  type?: HTMLInputTypeAttribute;
 }) => {
   const {
     hidden,
@@ -18,7 +21,7 @@ export const MyInput = (props: {
     corrector,
     centered,
     pattern,
-    isPassword,
+    type,
     optional,
     msg,
   } = props;
@@ -33,7 +36,7 @@ export const MyInput = (props: {
   ) : (
     <div className="relative z-0 w-full mt-3 group">
       <input
-        type={isPassword ? "password" : undefined}
+        type={type}
         name={label}
         style={{ textAlign: centered ? "center" : undefined }}
         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-teal-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"

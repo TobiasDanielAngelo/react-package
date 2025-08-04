@@ -26,7 +26,6 @@
   ],
   "dependencies": {
     "@uidotdev/usehooks": "^2.4.1",
-    "@uiw/react-color": "^2.5.5",
     "date-fns": "^4.1.0",
     "lz-string": "^1.5.0",
     "moment": "^2.30.1",
@@ -51,7 +50,7 @@
     "@mui/icons-material": "^7.1.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "tailwindcss": "3.3.2"
+    "tailwindcss": ">=3.3.0"
   },
   "devDependencies": {
     "react": "^19.1.0",
@@ -59,7 +58,6 @@
     "@mui/material": "^7.1.0",
     "@mui/icons-material": "^7.1.0",
     "react-router-dom": "^7.6.0",
-    "tailwindcss": "3.3.2",
     "mobx": "^6.13.7",
     "mobx-react-lite": "^4.1.0",
     "mobx-keystone": "^1.11.4",
@@ -74,6 +72,7 @@
     "postcss": "^8.5.3",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
+    "tailwindcss": ">=3.3.0",
     "vite": "^6.3.5"
   },
   "files": [
