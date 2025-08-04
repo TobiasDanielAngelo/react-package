@@ -363,3 +363,29 @@ export const functionBinder = (item: any) => {
     }
   }
 };
+
+export function storesToProps<
+  T extends Record<string, new (...args: any[]) => any>
+>(classes: T) {
+  const result: Record<string, ReturnType<typeof prop>> = {};
+
+  for (const key in classes) {
+    const camelKey = key.charAt(0).toLowerCase() + key.slice(1);
+    result[camelKey] = prop<InstanceType<T[typeof key]>>();
+  }
+
+  return result;
+}
+
+export function instantiateStores<
+  T extends Record<string, new (...args: any[]) => any>
+>(classes: T) {
+  const result: Record<string, InstanceType<T[keyof T]>> = {};
+
+  for (const key in classes) {
+    const camelKey = key.charAt(0).toLowerCase() + key.slice(1);
+    result[camelKey] = new classes[key]({});
+  }
+
+  return result;
+}
