@@ -1,3 +1,4 @@
+import { HTMLInputTypeAttribute } from "react";
 export declare const MyInput: (props: {
     hidden?: boolean;
     label?: string;
@@ -9,4 +10,5 @@ export declare const MyInput: (props: {
     isPassword?: boolean;
     optional?: boolean;
     msg?: string;
+    type?: HTMLInputTypeAttribute;
 }) => import("react/jsx-runtime").JSX.Element;

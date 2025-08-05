@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { DAYS_OF_WEEK_CHOICES } from "../constants/constants";
 import { toOptions } from "../constants/helpers";
 import { useKeyPress, useVisible, useWindowWidth } from "../constants/hooks";
-import { MyButton, MyCheckBox, MyColorPicker, MyConfirmModal, MyDateTimePicker, MyDropdownSelector, MyImageUploader, MyInput, MyMultiDropdownSelector, MyMultiSelector, MyTextArea, MyFileUploader, } from "./";
+import { MyButton, MyCheckBox, MyConfirmModal, MyDateTimePicker, MyDropdownSelector, MyImageUploader, MyInput, MyMultiDropdownSelector, MyMultiSelector, MyTextArea, MyFileUploader, } from "./";
 import { MyIcon } from "./MyIcon";
 const getMsg = (msg, name) => msg && !`${msg[name]}`.includes("undefined")
     ? `${msg[name]}`.includes("Invalid pk")
@@ -21,8 +21,6 @@ const renderField = (t, details, onChangeValue, msg, key) => {
     switch (t.type) {
         case "function":
             return (_jsxs("div", { className: "dark:text-white whitespace-pre-line items-center text-center", children: [_jsx("label", { className: "block text-xs text-left font-medium md:mt-1 text-blue-600", children: t.label }), t.function?.(details)] }, key));
-        case "password":
-            return _jsx(MyInput, { ...commonProps, isPassword: true }, key);
         case "select":
             return (_jsx(MyDropdownSelector, { ...commonProps, fetchFcn: t.fetchFcn, options: t.options }, key));
         case "date":
@@ -36,17 +34,17 @@ const renderField = (t, details, onChangeValue, msg, key) => {
             return (_jsx(MyMultiDropdownSelector, { ...commonProps, options: t.options }, key));
         case "textarea":
             return (_jsx(MyTextArea, { ...commonProps, value: details[t.name] ?? "", centered: t.centered }, key));
-        case "color":
-            return _jsx(MyColorPicker, { ...commonProps }, key);
         case "check":
             return _jsx(MyCheckBox, { ...commonProps }, key);
         case "image":
             return (_jsx(MyImageUploader, { value: details[t.name], onChangeValue: (u) => onChangeValue(u, t.name) }, key));
         case "file":
             return (_jsx(MyFileUploader, { value: details[t.name], onChangeValue: (u) => onChangeValue(u, t.name) }, key));
+        case "color":
+        case "password":
         case "number":
         case "text":
-            return (_jsx(MyInput, { ...commonProps, value: details[t.name] ?? "", centered: t.centered }, key));
+            return (_jsx(MyInput, { ...commonProps, value: details[t.name] ?? "", centered: t.centered, type: t.type }, key));
         default:
             return (_jsx("div", { className: "dark:text-gray-300 items-center justify-center", children: t.label }, key));
     }

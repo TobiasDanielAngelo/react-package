@@ -248,3 +248,19 @@ export const functionBinder = (item) => {
         }
     }
 };
+export function storesToProps(classes) {
+    const result = {};
+    for (const key in classes) {
+        const camelKey = key.charAt(0).toLowerCase() + key.slice(1);
+        result[camelKey] = prop();
+    }
+    return result;
+}
+export function instantiateStores(classes) {
+    const result = {};
+    for (const key in classes) {
+        const camelKey = key.charAt(0).toLowerCase() + key.slice(1);
+        result[camelKey] = new classes[key]({});
+    }
+    return result; // TS can't infer runtime object shape fully
+}
