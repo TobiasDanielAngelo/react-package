@@ -14,17 +14,14 @@ export type NullableProps<T> = {
     [K in keyof T]: T[K] | null;
 };
 export declare function MyModel<TProps extends ModelProps, TView>(slug: string, props: TProps, derivedProps?: (self: any) => TView): ModelClass<InstanceType<ReturnType<typeof Model<TProps>>> & KeystoneModel<PropsToInterface<TProps> & TView> & TView>;
-type PublicMethodNames<T> = {
-    [K in keyof T]: T[K] extends Function ? K extends string ? T extends {
-        [P in K]: T[K];
-    } ? K : never : never : never;
-}[keyof T];
-type PublicMethods<T> = Pick<T, PublicMethodNames<T>>;
+type EverythingPublic<T> = Pick<T, {
+    [K in keyof T]: K extends string ? T[K] extends (...args: any) => any | object | number | string | boolean | null | undefined ? K : never : never;
+}[keyof T]>;
 export declare function MyStore<T extends KeystoneModel<{
     id?: number | string | null;
 }>>(ModelClass: {
     new (...args: any[]): T;
-}, baseURL: string, slug: string, resetOnFetch?: boolean): new () => PublicMethods<{
+}, baseURL: string, slug: string, resetOnFetch?: boolean): new () => EverythingPublic<{
     onInit(): void;
     onAttachedToRootStore(): void;
     readonly allItems: Map<string | number, T>;
@@ -112,7 +109,64 @@ export declare function MyStore<T extends KeystoneModel<{
     lastUpdated: string;
     latestParam: string;
     countToUpdate: number;
-}>;
+}> & Required<PropsToInterface<{
+    items: import("mobx-keystone").OptionalModelProp<T[]>;
+    related: import("mobx-keystone").OptionalModelProp<Related[]>;
+    relatedFields: import("mobx-keystone").OptionalModelProp<string[]>;
+    optionFields: import("mobx-keystone").OptionalModelProp<string[]>;
+    dateFields: import("mobx-keystone").OptionalModelProp<string[]>;
+    datetimeFields: import("mobx-keystone").OptionalModelProp<string[]>;
+    priceFields: import("mobx-keystone").OptionalModelProp<string[]>;
+    timeFields: import("mobx-keystone").OptionalModelProp<string[]>;
+    isSubscribed: import("mobx-keystone").OptionalModelProp<boolean>;
+    lastUpdated: import("mobx-keystone").OptionalModelProp<string>;
+    latestParam: import("mobx-keystone").OptionalModelProp<string>;
+    countToUpdate: import("mobx-keystone").OptionalModelProp<number>;
+}>> & {
+    readonly allItems: Map<string | number, T>;
+    readonly itemsSignature: string;
+    readonly $: {
+        items: T[];
+        related: Related[];
+        relatedFields: string[];
+        optionFields: string[];
+        dateFields: string[];
+        datetimeFields: string[];
+        priceFields: string[];
+        timeFields: string[];
+        isSubscribed: boolean;
+        lastUpdated: string;
+        latestParam: string;
+        countToUpdate: number;
+    };
+    [propsTypeSymbol]: {
+        items: import("mobx-keystone").OptionalModelProp<T[]>;
+        related: import("mobx-keystone").OptionalModelProp<Related[]>;
+        relatedFields: import("mobx-keystone").OptionalModelProp<string[]>;
+        optionFields: import("mobx-keystone").OptionalModelProp<string[]>;
+        dateFields: import("mobx-keystone").OptionalModelProp<string[]>;
+        datetimeFields: import("mobx-keystone").OptionalModelProp<string[]>;
+        priceFields: import("mobx-keystone").OptionalModelProp<string[]>;
+        timeFields: import("mobx-keystone").OptionalModelProp<string[]>;
+        isSubscribed: import("mobx-keystone").OptionalModelProp<boolean>;
+        lastUpdated: import("mobx-keystone").OptionalModelProp<string>;
+        latestParam: import("mobx-keystone").OptionalModelProp<string>;
+        countToUpdate: import("mobx-keystone").OptionalModelProp<number>;
+    };
+    readonly $modelType: string;
+    related: Related[];
+    optionFields: string[];
+    relatedFields: string[];
+    dateFields: string[];
+    datetimeFields: string[];
+    priceFields: string[];
+    timeFields: string[];
+    items: T[];
+    isSubscribed: boolean;
+    lastUpdated: string;
+    latestParam: string;
+    countToUpdate: number;
+};
 export type IStore = InstanceType<ReturnType<typeof MyStore>>;
 export declare const functionBinder: (item: any) => void;
 type CamelCase<S extends string> = S extends `${infer F}${infer R}` ? `${Lowercase<F>}${R}` : S;

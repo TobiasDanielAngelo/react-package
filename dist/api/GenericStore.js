@@ -23,8 +23,7 @@ export function MyModel(slug, props, derivedProps = () => ({})) {
     return GenericModel;
 }
 export function MyStore(ModelClass, baseURL, slug, resetOnFetch) {
-    @model(`myApp/${slug}Store`)
-    class GenericStore extends Model({
+    const props = {
         items: prop(() => []),
         related: prop(() => []),
         relatedFields: prop(() => []),
@@ -37,7 +36,9 @@ export function MyStore(ModelClass, baseURL, slug, resetOnFetch) {
         lastUpdated: prop(""),
         latestParam: prop(""),
         countToUpdate: prop(0),
-    }) {
+    };
+    @model(`myApp/${slug}Store`)
+    class GenericStore extends Model(props) {
         onInit() {
             super.onInit();
         }

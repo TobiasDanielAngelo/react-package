@@ -11,6 +11,7 @@ import {
   ModelClass,
   modelFlow,
   modelIdPropertyNameSymbol,
+  ModelProp,
   ModelProps,
   prop,
   propsTypeSymbol,
@@ -76,17 +77,40 @@ export function MyModel<TProps extends ModelProps, TView>(
   >;
 }
 
-type PublicMethodNames<T> = {
-  [K in keyof T]: T[K] extends Function
-    ? K extends string
-      ? T extends { [P in K]: T[K] } // filters out protected/private
+// type PublicMethodNames<T> = {
+//   [K in keyof T]: T[K] extends Function
+//     ? K extends string
+//       ? T extends { [P in K]: T[K] } // filters out protected/private
+//         ? K
+//         : never
+//       : never
+//     : never;
+// }[keyof T];
+
+// type PublicMethods<T> = Pick<T, PublicMethodNames<T>>;
+
+// type PublicKeys<T> = {
+//   [K in keyof T]: T[K] extends (...args: any[]) => any ? K : T[K] extends object ? K : never;
+// }[keyof T];
+
+// type PublicMembers<T> = Pick<T, PublicKeys<T>>;
+
+// type PublicFieldsAndMethods<T> = {
+//   [K in keyof T as T[K] extends Function ? K : T[K] extends object ? K : never]: T[K];
+// };
+
+type EverythingPublic<T> = Pick<
+  T,
+  {
+    [K in keyof T]: K extends string
+      ? T[K] extends (
+          ...args: any
+        ) => any | object | number | string | boolean | null | undefined
         ? K
         : never
-      : never
-    : never;
-}[keyof T];
-
-type PublicMethods<T> = Pick<T, PublicMethodNames<T>>;
+      : never;
+  }[keyof T]
+>;
 
 export function MyStore<
   T extends KeystoneModel<{ id?: number | string | null }>
@@ -98,8 +122,7 @@ export function MyStore<
   slug: string,
   resetOnFetch?: boolean
 ) {
-  @model(`myApp/${slug}Store`)
-  class GenericStore extends Model({
+  const props = {
     items: prop<T[]>(() => []),
     related: prop<Related[]>(() => []),
     relatedFields: prop<string[]>(() => []),
@@ -112,7 +135,16 @@ export function MyStore<
     lastUpdated: prop<string>(""),
     latestParam: prop<string>(""),
     countToUpdate: prop<number>(0),
-  }) {
+  };
+
+  type GenericInterface = Required<PropsToInterface<typeof props>>;
+
+  type ComputedGetters<T> = {
+    [K in keyof T as T[K] extends (...args: any[]) => any ? never : K]: T[K];
+  };
+
+  @model(`myApp/${slug}Store`)
+  class GenericStore extends Model(props) {
     onInit() {
       super.onInit();
     }
@@ -360,9 +392,11 @@ export function MyStore<
     };
   }
 
-  type Methods = PublicMethods<GenericStore>;
+  type Methods = EverythingPublic<GenericStore>;
 
-  return GenericStore as unknown as new () => Methods;
+  return GenericStore as unknown as new () => Methods &
+    GenericInterface &
+    ComputedGetters<GenericStore>;
 }
 
 export type IStore = InstanceType<ReturnType<typeof MyStore>>;
