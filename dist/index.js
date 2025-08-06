@@ -1,5 +1,4 @@
-import "./style.css"
-
+import "./index.css";
 export * from "./api/GenericStore";
 export * from "./blueprints/ItemDetails";
 export * from "./blueprints/ItemRow";
