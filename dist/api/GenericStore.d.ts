@@ -12,10 +12,10 @@ type KeystoneModel<U> = {
 export type NullableProps<T> = {
     [K in keyof T]: T[K] | null;
 };
-export declare function MyModel<TProps extends ModelProps, TView>(keyName: string, props: TProps, derivedProps?: (self: any) => TView): ModelClass<InstanceType<ReturnType<typeof Model<TProps>>> & KeystoneModel<PropsToInterface<TProps> & TView> & TView>;
+export declare function MyModel<TProps extends ModelProps, TView>(slug: string, props: TProps, derivedProps?: (self: any) => TView): ModelClass<InstanceType<ReturnType<typeof Model<TProps>>> & KeystoneModel<PropsToInterface<TProps> & TView> & TView>;
 export declare function MyStore<T extends KeystoneModel<{
     id?: number | string | null;
-}>>(keyName: string, ModelClass: {
+}>>(ModelClass: {
     new (...args: any[]): T;
 }, baseURL: string, slug: string, resetOnFetch?: boolean): any;
 export type IStore = InstanceType<ReturnType<typeof MyStore>>;

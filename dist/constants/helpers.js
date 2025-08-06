@@ -1,9 +1,7 @@
 import { format, isValid, parse } from "date-fns";
 import LZString from "lz-string";
-import { prop } from "mobx-keystone";
 import moment from "moment";
 import { RRule } from "rrule";
-import { djangoToJsType, } from "./interfaces";
 export const posRamp = (x) => (x > 0 ? x : 0);
 export function kebabToCamel(str) {
     return str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
@@ -761,43 +759,4 @@ export function toRomanWithExponents(num) {
     if (num > 0)
         chunks.push(toRoman(num));
     return chunks.join(" ");
-}
-// Unused yet
-export const jsTypeDefaults = {
-    number: () => prop(-1),
-    "number[]": () => prop(() => []),
-    "number | null": () => prop(null),
-    "number[] | null": () => prop(null),
-    string: () => prop(""),
-    "string[]": () => prop(() => []),
-    boolean: () => prop(false),
-    "string | null": () => prop(null),
-    "File | null": () => prop(null),
-    "string[] | null": () => prop(null),
-};
-// Unused yet
-export function fieldsToProps(fields) {
-    const props = {};
-    props["id"] = prop(-1);
-    for (const [djangoField, names] of Object.entries(fields)) {
-        const jsType = djangoToJsType[djangoField];
-        const getDefaultProp = jsTypeDefaults[jsType];
-        if (!getDefaultProp)
-            throw new Error(`Unknown JS type for ${djangoField}: ${jsType}`);
-        for (const name of names) {
-            props[name] = getDefaultProp();
-        }
-    }
-    return props;
-}
-export function ensureUniqueFields(fields) {
-    const seen = new Set();
-    for (const names of Object.values(fields)) {
-        for (const name of names) {
-            if (seen.has(name)) {
-                throw new Error(`Duplicate field detected: "${name}"`);
-            }
-            seen.add(name);
-        }
-    }
 }

@@ -1,5 +1,5 @@
 import { Options, RRule } from "rrule";
-import { DjangoField, JsType, Option, ScheduleInterface } from "./interfaces";
+import { Option, ScheduleInterface } from "./interfaces";
 export declare const posRamp: (x: number) => number;
 export declare function kebabToCamel(str: string): string;
 export declare function titleToCamel(str: string): string;
@@ -192,8 +192,3 @@ export declare function toRoman(num: number): string;
 export declare function findByIndex<T>(arr: T[], index: number): T | undefined;
 export declare function toSuperscript(n: number | string): string;
 export declare function toRomanWithExponents(num: number): string;
-export declare const jsTypeDefaults: Record<JsType, () => any>;
-export declare function fieldsToProps<F extends {
-    [K in DjangoField]?: readonly string[];
-}>(fields: F): Record<"id" | (F[keyof F] extends readonly (infer E)[] ? E extends string ? E : never : never), any>;
-export declare function ensureUniqueFields(fields: Record<DjangoField, string[]>): void;

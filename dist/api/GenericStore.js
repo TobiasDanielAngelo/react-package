@@ -2,13 +2,10 @@ import { computed } from "mobx";
 import { _async, _await, model, Model, modelAction, modelFlow, prop, } from "mobx-keystone";
 import Swal from "sweetalert2";
 import { deleteItemRequest, fetchItemsRequest, postItemRequest, updateItemRequest, } from ".";
-function hasAllItems(obj) {
-    return obj && typeof obj === "object" && "allItems" in obj;
-}
-export function MyModel(keyName, props, derivedProps = () => ({})) {
+export function MyModel(slug, props, derivedProps = () => ({})) {
     const Base = Model(props);
     // @ts-expect-error mobx-keystone decorator returns new class
-    @model(`myApp/${keyName}`)
+    @model(`myApp/${slug}`)
     class GenericModel extends Base {
         update(details) {
             Object.assign(this, details);
@@ -25,8 +22,8 @@ export function MyModel(keyName, props, derivedProps = () => ({})) {
     }
     return GenericModel;
 }
-export function MyStore(keyName, ModelClass, baseURL, slug, resetOnFetch) {
-    @model(`myApp/${keyName}Store`)
+export function MyStore(ModelClass, baseURL, slug, resetOnFetch) {
+    @model(`myApp/${slug}Store`)
     class GenericStore extends Model({
         items: prop(() => []),
         related: prop(() => []),
