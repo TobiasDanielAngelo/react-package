@@ -37,12 +37,8 @@ export type NullableProps<T> = {
   [K in keyof T]: T[K] | null;
 };
 
-function hasAllItems(obj: any): obj is { allItems: Map<number | string, any> } {
-  return obj && typeof obj === "object" && "allItems" in obj;
-}
-
 export function MyModel<TProps extends ModelProps, TView>(
-  keyName: string,
+  slug: string,
   props: TProps,
   derivedProps: (self: any) => TView = () => ({} as TView)
 ) {
@@ -51,7 +47,7 @@ export function MyModel<TProps extends ModelProps, TView>(
   const Base = Model(props) as new (...args: any[]) => object;
 
   // @ts-expect-error mobx-keystone decorator returns new class
-  @model(`myApp/${keyName}`)
+  @model(`myApp/${slug}`)
   class GenericModel extends Base {
     update(details: GenericInterface) {
       Object.assign(this, details);
@@ -79,7 +75,6 @@ export function MyModel<TProps extends ModelProps, TView>(
 export function MyStore<
   T extends KeystoneModel<{ id?: number | string | null }>
 >(
-  keyName: string,
   ModelClass: {
     new (...args: any[]): T;
   },
@@ -87,7 +82,7 @@ export function MyStore<
   slug: string,
   resetOnFetch?: boolean
 ): any {
-  @model(`myApp/${keyName}Store`)
+  @model(`myApp/${slug}Store`)
   class GenericStore extends Model({
     items: prop<T[]>(() => []),
     related: prop<Related[]>(() => []),
