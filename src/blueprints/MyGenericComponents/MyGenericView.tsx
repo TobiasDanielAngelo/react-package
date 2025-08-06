@@ -23,7 +23,7 @@ export const useViewValues = <
   U extends Object & { id: number | string | null },
   T extends { $view: Record<string, any> }
 >(
-  settingStore: IStore<U>,
+  settingStore: IStore,
   name: string,
   obj: T,
   graphs: GraphType[] = ["pie", "line"]

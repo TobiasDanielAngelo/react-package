@@ -8,7 +8,7 @@ export declare const useViewValues: <U extends Object & {
     id: number | string | null;
 }, T extends {
     $view: Record<string, any>;
-}>(settingStore: IStore<U>, name: string, obj: T, graphs?: GraphType[]) => {
+}>(settingStore: IStore, name: string, obj: T, graphs?: GraphType[]) => {
     pageDetails: PaginatedDetails;
     setPageDetails: import("react").Dispatch<import("react").SetStateAction<PaginatedDetails>>;
     params: URLSearchParams;

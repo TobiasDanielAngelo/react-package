@@ -375,10 +375,7 @@ export function MyStore<
     ComputedGetters<GenericStore>;
 }
 
-export type IStore<
-  U extends { id: number | string },
-  T extends KeystoneModel<U> = KeystoneModel<U>
-> = InstanceType<ReturnType<typeof MyStore<T>>>;
+export type IStore = InstanceType<ReturnType<typeof MyStore<any>>>;
 
 export const functionBinder = (item: any) => {
   for (const key of Object.getOwnPropertyNames(item)) {
