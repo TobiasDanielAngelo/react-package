@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "description": "A reusable React component library",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    "import": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
