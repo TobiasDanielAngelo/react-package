@@ -113,9 +113,11 @@ export function MyStore<
     latestParam: prop<string>(""),
     countToUpdate: prop<number>(0),
   }) {
-    public onInit() {}
+    onInit() {
+      super.onInit();
+    }
 
-    public onAttachedToRootStore() {}
+    onAttachedToRootStore() {}
 
     @computed
     get allItems() {
