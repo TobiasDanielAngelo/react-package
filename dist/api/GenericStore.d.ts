@@ -1,5 +1,6 @@
-import { MaybeOptionalModelProp, Model, ModelClass, ModelProps } from "mobx-keystone";
+import { fromSnapshotOverrideTypeSymbol, MaybeOptionalModelProp, Model, ModelClass, modelIdPropertyNameSymbol, ModelProps, propsTypeSymbol, toSnapshotOverrideTypeSymbol } from "mobx-keystone";
 import { PropsToInterface } from "../constants/interfaces";
+import { Related } from ".";
 export type LoginInterface = {
     username: string;
     password: string;
@@ -13,11 +14,105 @@ export type NullableProps<T> = {
     [K in keyof T]: T[K] | null;
 };
 export declare function MyModel<TProps extends ModelProps, TView>(slug: string, props: TProps, derivedProps?: (self: any) => TView): ModelClass<InstanceType<ReturnType<typeof Model<TProps>>> & KeystoneModel<PropsToInterface<TProps> & TView> & TView>;
+type PublicMethodNames<T> = {
+    [K in keyof T]: T[K] extends Function ? K extends string ? T extends {
+        [P in K]: T[K];
+    } ? K : never : never : never;
+}[keyof T];
+type PublicMethods<T> = Pick<T, PublicMethodNames<T>>;
 export declare function MyStore<T extends KeystoneModel<{
     id?: number | string | null;
 }>>(ModelClass: {
     new (...args: any[]): T;
-}, baseURL: string, slug: string, resetOnFetch?: boolean): any;
+}, baseURL: string, slug: string, resetOnFetch?: boolean): new () => PublicMethods<{
+    onInit(): void;
+    onAttachedToRootStore(): void;
+    readonly allItems: Map<string | number, T>;
+    readonly itemsSignature: string;
+    setSubscription: (this: /*elided*/ any, state: boolean) => void;
+    fetchAll: (params?: string) => Promise<any>;
+    checkUpdated: (lastUpdated: string) => Promise<{
+        details: any;
+        ok: boolean;
+        data: any;
+    }>;
+    fetchUpdated: () => Promise<any>;
+    addItem: (details: NullableProps<Partial<T>>) => Promise<{
+        details: any;
+        ok: boolean;
+        data: any;
+    } | {
+        details: string;
+        ok: boolean;
+        data: T;
+    }>;
+    updateItem: (itemId: string | number, details: NullableProps<Partial<T>>) => Promise<{
+        details: any;
+        ok: boolean;
+        data: any;
+    } | {
+        details: string;
+        ok: boolean;
+        data: any;
+    }>;
+    deleteItem: (itemId: string | number) => Promise<any>;
+    authBase: (method: "login" | "reauth" | "logout", credentials?: LoginInterface) => Promise<{
+        details: string;
+        ok: boolean;
+        data: any;
+    }>;
+    resetItems: (this: /*elided*/ any) => void;
+    getRefId(): string | undefined;
+    readonly $: {
+        items: T[];
+        related: Related[];
+        relatedFields: string[];
+        optionFields: string[];
+        dateFields: string[];
+        datetimeFields: string[];
+        priceFields: string[];
+        timeFields: string[];
+        isSubscribed: boolean;
+        lastUpdated: string;
+        latestParam: string;
+        countToUpdate: number;
+    };
+    typeCheck(): import("mobx-keystone").TypeCheckError | null;
+    toString(options?: {
+        withData?: boolean;
+    }): string;
+    [propsTypeSymbol]: {
+        items: import("mobx-keystone").OptionalModelProp<T[]>;
+        related: import("mobx-keystone").OptionalModelProp<Related[]>;
+        relatedFields: import("mobx-keystone").OptionalModelProp<string[]>;
+        optionFields: import("mobx-keystone").OptionalModelProp<string[]>;
+        dateFields: import("mobx-keystone").OptionalModelProp<string[]>;
+        datetimeFields: import("mobx-keystone").OptionalModelProp<string[]>;
+        priceFields: import("mobx-keystone").OptionalModelProp<string[]>;
+        timeFields: import("mobx-keystone").OptionalModelProp<string[]>;
+        isSubscribed: import("mobx-keystone").OptionalModelProp<boolean>;
+        lastUpdated: import("mobx-keystone").OptionalModelProp<string>;
+        latestParam: import("mobx-keystone").OptionalModelProp<string>;
+        countToUpdate: import("mobx-keystone").OptionalModelProp<number>;
+    };
+    [fromSnapshotOverrideTypeSymbol]: never;
+    [toSnapshotOverrideTypeSymbol]: never;
+    [modelIdPropertyNameSymbol]: never;
+    readonly $modelType: string;
+    $modelId: never;
+    related: Related[];
+    optionFields: string[];
+    relatedFields: string[];
+    dateFields: string[];
+    datetimeFields: string[];
+    priceFields: string[];
+    timeFields: string[];
+    items: T[];
+    isSubscribed: boolean;
+    lastUpdated: string;
+    latestParam: string;
+    countToUpdate: number;
+}>;
 export type IStore = InstanceType<ReturnType<typeof MyStore>>;
 export declare const functionBinder: (item: any) => void;
 type CamelCase<S extends string> = S extends `${infer F}${infer R}` ? `${Lowercase<F>}${R}` : S;

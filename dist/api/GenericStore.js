@@ -38,6 +38,10 @@ export function MyStore(ModelClass, baseURL, slug, resetOnFetch) {
         latestParam: prop(""),
         countToUpdate: prop(0),
     }) {
+        onInit() {
+            super.onInit();
+        }
+        onAttachedToRootStore() { }
         @computed
         get allItems() {
             const map = new Map();
