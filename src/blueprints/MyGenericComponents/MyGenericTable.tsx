@@ -9,7 +9,7 @@ import {
 import { KV, StateSetter } from "../../constants/interfaces";
 import { formatValue } from "../../constants/JSXHelpers";
 import { MyTable } from "../MyTable";
-import { Related } from "../../api";
+import { Related } from "../../api/GenericStore";
 
 type MyGenericTableProps<T extends object> = {
   items: T[];

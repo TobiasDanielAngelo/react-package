@@ -2,8 +2,7 @@ import { SetURLSearchParams } from "react-router-dom";
 import { VisibleMap } from "../../constants/hooks";
 import { ActionModalDef, GraphType, KV, PaginatedDetails, StateSetter } from "../../constants/interfaces";
 import { GenericViewProps } from "./MyGenericProps";
-import { Related } from "../../api";
-import { IStore } from "../../api/GenericStore";
+import { IStore, Related } from "../../api/GenericStore";
 export declare const useViewValues: <U extends Object & {
     id: number | string | null;
 }, T extends {

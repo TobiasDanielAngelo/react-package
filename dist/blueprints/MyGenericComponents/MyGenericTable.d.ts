@@ -1,5 +1,5 @@
 import { KV, StateSetter } from "../../constants/interfaces";
-import { Related } from "../../api";
+import { Related } from "../../api/GenericStore";
 type MyGenericTableProps<T extends object> = {
     items: T[];
     itemMap?: KV<any>[];

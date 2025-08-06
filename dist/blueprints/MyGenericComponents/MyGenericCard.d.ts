@@ -1,6 +1,6 @@
 import { ItemDetailsProps, KV, Page } from "../../constants/interfaces";
 import { IconName } from "../MyIcon";
-import { Related } from "../../api";
+import { Related } from "../../api/GenericStore";
 export interface IAction {
     onClick: () => void;
     icon: IconName;

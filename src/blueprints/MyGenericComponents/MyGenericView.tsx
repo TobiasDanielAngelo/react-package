@@ -17,8 +17,7 @@ import { MyMultiDropdownSelector } from "../MyMultiDropdownSelector";
 import { MyPageBar } from "../MyPageBar";
 import { MySpeedDial } from "../MySpeedDial";
 import { GenericViewProps } from "./MyGenericProps";
-import { Related } from "../../api";
-import { IStore } from "../../api/GenericStore";
+import { IStore, Related } from "../../api/GenericStore";
 export const useViewValues = <
   U extends Object & { id: number | string | null },
   T extends { $view: Record<string, any> }

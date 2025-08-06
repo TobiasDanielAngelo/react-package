@@ -1,5 +1,5 @@
 import { KV } from "../../constants/interfaces";
-import { Related } from "../../api";
+import { Related } from "../../api/GenericStore";
 export type MyTrendChartProps<T extends Record<string, any>> = {
     data: T[];
     traceKey?: keyof T;

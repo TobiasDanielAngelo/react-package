@@ -1,6 +1,6 @@
 import { prop } from "mobx-keystone";
 import { IconName } from "../blueprints/MyIcon";
-import { Related } from "../api";
+import { Related } from "../api/GenericStore";
 
 export type CalendarEvent = {
   id: string | number;

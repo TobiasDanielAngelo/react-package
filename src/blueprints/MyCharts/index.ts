@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { camelCaseToWords, getStoreSignature } from "../../constants/helpers";
 import { KV } from "../../constants/interfaces";
-import { Related } from "../../api";
+import { Related } from "../../api/GenericStore";
 
 export type MyTrendChartProps<T extends Record<string, any>> = {
   data: T[];

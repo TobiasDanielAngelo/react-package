@@ -7,7 +7,7 @@ import { MyConfirmModal } from "../MyConfirmModal";
 import { MyDropdownMenu } from "../MyDropdownMenu";
 import { IconName, MyIcon } from "../MyIcon";
 import { MyModal } from "../MyModal";
-import { Related } from "../../api";
+import { Related } from "../../api/GenericStore";
 
 export interface IAction {
   onClick: () => void;

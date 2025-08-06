@@ -6,7 +6,7 @@ import { MyConfirmModal } from "../MyConfirmModal";
 import { MyIcon } from "../MyIcon";
 import { MyModal } from "../MyModal";
 import { ItemDetailsProps, KV } from "../../constants/interfaces";
-import { Related } from "../../api";
+import { Related } from "../../api/GenericStore";
 
 interface MyGenericRecursiveCardProps<T> extends ItemDetailsProps<T> {
   FormComponent: React.ComponentType<{

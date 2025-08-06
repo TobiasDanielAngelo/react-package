@@ -1,5 +1,5 @@
 import { ItemDetailsProps, KV } from "../../constants/interfaces";
-import { Related } from "../../api";
+import { Related } from "../../api/GenericStore";
 interface MyGenericRecursiveCardProps<T> extends ItemDetailsProps<T> {
     FormComponent: React.ComponentType<{
         item: T;

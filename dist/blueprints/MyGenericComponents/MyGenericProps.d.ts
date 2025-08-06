@@ -1,6 +1,6 @@
 import { SetURLSearchParams } from "react-router-dom";
 import { GraphType, KV, PaginatedDetails, StateSetter } from "../../constants/interfaces";
-import { Related } from "../../api";
+import { Related } from "../../api/GenericStore";
 export interface GenericViewProps<T> {
     shownFields: (keyof T)[];
     setShownFields: StateSetter<(keyof T)[]>;
