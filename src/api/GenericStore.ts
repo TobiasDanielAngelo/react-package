@@ -2,6 +2,7 @@ import { computed } from "mobx";
 import {
   _async,
   _await,
+  fromSnapshotOverrideTypeSymbol,
   getRoot,
   MaybeOptionalModelProp,
   model,
@@ -9,8 +10,11 @@ import {
   modelAction,
   ModelClass,
   modelFlow,
+  modelIdPropertyNameSymbol,
   ModelProps,
   prop,
+  propsTypeSymbol,
+  toSnapshotOverrideTypeSymbol,
 } from "mobx-keystone";
 import Swal from "sweetalert2";
 import { PropsToInterface } from "../constants/interfaces";
@@ -72,6 +76,18 @@ export function MyModel<TProps extends ModelProps, TView>(
   >;
 }
 
+type PublicMethodNames<T> = {
+  [K in keyof T]: T[K] extends Function
+    ? K extends string
+      ? T extends { [P in K]: T[K] } // filters out protected/private
+        ? K
+        : never
+      : never
+    : never;
+}[keyof T];
+
+type PublicMethods<T> = Pick<T, PublicMethodNames<T>>;
+
 export function MyStore<
   T extends KeystoneModel<{ id?: number | string | null }>
 >(
@@ -81,7 +97,7 @@ export function MyStore<
   baseURL: string,
   slug: string,
   resetOnFetch?: boolean
-): any {
+) {
   @model(`myApp/${slug}Store`)
   class GenericStore extends Model({
     items: prop<T[]>(() => []),
@@ -97,6 +113,10 @@ export function MyStore<
     latestParam: prop<string>(""),
     countToUpdate: prop<number>(0),
   }) {
+    public onInit() {}
+
+    public onAttachedToRootStore() {}
+
     @computed
     get allItems() {
       const map = new Map<number | string, T>();
@@ -338,7 +358,9 @@ export function MyStore<
     };
   }
 
-  return GenericStore;
+  type Methods = PublicMethods<GenericStore>;
+
+  return GenericStore as unknown as new () => Methods;
 }
 
 export type IStore = InstanceType<ReturnType<typeof MyStore>>;
