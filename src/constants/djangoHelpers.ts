@@ -1,63 +1,164 @@
 import { OptionalModelProp, prop } from "mobx-keystone";
+import { Field, Option } from "./interfaces";
+import { toTitleCase } from "./helpers";
 
 const DjangoFields = {
-  DefaultBooleanField: prop<boolean>(false),
-  FileField: prop<File | null>(null),
-  CascadeOptionalForeignKey: prop<number | null>(null),
-  OptionalOneToOneField: prop<number | null>(null),
-  OptionalSetNullOneToOneField: prop<number | null>(null),
-  AmountField: prop<number>(-1),
-  CascadeRequiredForeignKey: prop<number>(-1),
-  ChoiceIntegerField: prop<number>(-1),
-  DecimalField: prop<number>(-1),
-  ForeignKey: prop<number>(-1),
-  LimitedDecimalField: prop<number>(-1),
-  LimitedIntegerField: prop<number>(-1),
-  OneToOneField: prop<number>(-1),
-  OptionalLimitedDecimalField: prop<number>(-1),
-  SetNullOptionalForeignKey: prop<number>(-1),
-  OptionalManyToManyField: prop<number[] | null>(null),
-  ChoicesNumberArrayField: prop<number[]>(() => []),
-  ManyToManyField: prop<number[]>(() => []),
-  NumberArrayField: prop<number[]>(() => []),
-  OptionalDateField: prop<string | null>(null),
-  OptionalDateTimeField: prop<string | null>(null),
-  OptionalLimitedTimeField: prop<string | null>(null),
-  AutoCreatedAtField: prop<string>(""),
-  AutoUpdatedAtField: prop<string>(""),
-  ColorField: prop<string>(""),
-  DefaultNowField: prop<string>(""),
-  DefaultTodayField: prop<string>(""),
-  LongCharField: prop<string>(""),
-  MediumCharField: prop<string>(""),
-  OptionalEmailField: prop<string>(""),
-  OptionalURLField: prop<string>(""),
-  ShortCharField: prop<string>(""),
-  ChoicesStringArrayField: prop<string[]>(() => []),
-  StringArrayField: prop<string[]>(() => []),
-  ID: prop<number | string>(-1),
+  DefaultBooleanField: {
+    prop: prop<boolean>(false),
+    type: "check",
+  },
+  FileField: {
+    prop: prop<File | null>(null),
+    type: "file",
+  },
+  CascadeOptionalForeignKey: {
+    prop: prop<number | null>(null),
+    type: "select",
+  },
+  OptionalOneToOneField: {
+    prop: prop<number | null>(null),
+    type: "select",
+  },
+  OptionalSetNullOneToOneField: {
+    prop: prop<number | null>(null),
+    type: "select",
+  },
+  AmountField: {
+    prop: prop<number>(-1),
+    type: "number",
+  },
+  CascadeRequiredForeignKey: {
+    prop: prop<number>(-1),
+    type: "select",
+  },
+  ChoiceIntegerField: {
+    prop: prop<number>(-1),
+    type: "select",
+  },
+  DecimalField: {
+    prop: prop<number>(-1),
+    type: "number",
+  },
+  ForeignKey: {
+    prop: prop<number>(-1),
+    type: "select",
+  },
+  LimitedDecimalField: {
+    prop: prop<number>(-1),
+    type: "number",
+  },
+  LimitedIntegerField: {
+    prop: prop<number>(-1),
+    type: "number",
+  },
+  OneToOneField: {
+    prop: prop<number>(-1),
+    type: "select",
+  },
+  OptionalLimitedDecimalField: {
+    prop: prop<number>(-1),
+    type: "number",
+  },
+  SetNullOptionalForeignKey: {
+    prop: prop<number>(-1),
+    type: "select",
+  },
+  OptionalManyToManyField: {
+    prop: prop<number[] | null>(null),
+    type: "multi",
+  },
+  ChoicesNumberArrayField: {
+    prop: prop<number[]>(() => []),
+    type: "multi",
+  },
+  ManyToManyField: {
+    prop: prop<number[]>(() => []),
+    type: "multi",
+  },
+  NumberArrayField: {
+    prop: prop<number[]>(() => []),
+    type: "multi",
+  },
+  OptionalDateField: {
+    prop: prop<string | null>(null),
+    type: "date",
+  },
+  OptionalDateTimeField: {
+    prop: prop<string | null>(null),
+    type: "datetime",
+  },
+  OptionalLimitedTimeField: {
+    prop: prop<string | null>(null),
+    type: "time",
+  },
+  AutoCreatedAtField: {
+    prop: prop<string>(""),
+    type: "datetime",
+  },
+  AutoUpdatedAtField: {
+    prop: prop<string>(""),
+    type: "datetime",
+  },
+  ColorField: {
+    prop: prop<string>(""),
+    type: "color",
+  },
+  DefaultNowField: {
+    prop: prop<string>(""),
+    type: "datetime",
+  },
+  DefaultTodayField: {
+    prop: prop<string>(""),
+    type: "date",
+  },
+  LongCharField: {
+    prop: prop<string>(""),
+    type: "textarea",
+  },
+  MediumCharField: {
+    prop: prop<string>(""),
+    type: "text",
+  },
+  OptionalEmailField: {
+    prop: prop<string>(""),
+    type: "text",
+  },
+  OptionalURLField: {
+    prop: prop<string>(""),
+    type: "text",
+  },
+  ShortCharField: {
+    prop: prop<string>(""),
+    type: "text",
+  },
+  ChoicesStringArrayField: {
+    prop: prop<string[]>(() => []),
+    type: "multi",
+  },
+  StringArrayField: {
+    prop: prop<string[]>(() => []),
+    type: "multi",
+  },
+  ID: {
+    prop: prop<number | string>(-1),
+    type: "number",
+  },
 };
 
-export type DjangoFieldNames = keyof typeof DjangoFields;
-
 export type DjangoModelField = {
-  field: DjangoFieldNames;
+  field: keyof typeof DjangoFields;
   fk?: string;
-  choices?: string[];
+  choices?: Option[];
+  label?: string;
 };
 
 type ExtractPropType<F> = F extends OptionalModelProp<infer T> ? T : never;
-
-type DjangoFieldsMap = typeof DjangoFields;
-
 type FieldTypeToType = {
-  [K in keyof DjangoFieldsMap]: ExtractPropType<DjangoFieldsMap[K]>;
+  [K in keyof typeof DjangoFields]: ExtractPropType<
+    (typeof DjangoFields)[K]["prop"]
+  >;
 };
-
-type FieldDef = { field: keyof FieldTypeToType };
-
-type FieldsInput = Record<string, FieldDef>;
-
+type FieldsInput = Record<string, DjangoModelField>;
 type FieldToProp<F extends FieldsInput> = {
   [K in keyof F]: OptionalModelProp<FieldTypeToType[F[K]["field"]]>;
 };
@@ -67,8 +168,33 @@ export function fieldToProps<F extends FieldsInput>(fields: F): FieldToProp<F> {
 
   for (const key in fields) {
     const { field } = fields[key];
-    const propFn = (DjangoFields as any)[field];
+    const propFn = (DjangoFields as any)[field]["prop"];
     result[key] = propFn;
+  }
+
+  return result;
+}
+
+export function fieldToFormField<F extends FieldsInput>(
+  fields: F,
+  excludedFields?: (keyof F)[]
+): Field[][] {
+  const result: Field[][] = [];
+
+  for (const key in fields) {
+    if (["id", ...(excludedFields ?? [])].includes(key)) {
+      continue;
+    }
+    const { field, choices, label } = fields[key];
+    const type = DjangoFields[field].type;
+    result.push([
+      {
+        name: key,
+        label: label ?? toTitleCase(key),
+        type,
+        options: choices ?? [],
+      },
+    ]);
   }
 
   return result;
