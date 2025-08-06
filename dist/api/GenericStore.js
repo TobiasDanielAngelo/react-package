@@ -349,7 +349,7 @@ export function MyStore(ModelClass, baseURL, slug, resetOnFetch) {
         authBase = _async(function* (method, credentials) {
             let result;
             try {
-                result = yield* _await(postItemRequest(baseURL, `cookie-${method}`, credentials));
+                result = yield* _await(postItemRequest(baseURL, `${method}`, credentials));
             }
             catch (error) {
                 Swal.fire({

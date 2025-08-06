@@ -591,7 +591,7 @@ export function MyStore<
       let result;
       try {
         result = yield* _await(
-          postItemRequest(baseURL, `cookie-${method}`, credentials)
+          postItemRequest(baseURL, `${method}`, credentials)
         );
       } catch (error) {
         Swal.fire({
