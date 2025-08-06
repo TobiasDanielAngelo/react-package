@@ -223,6 +223,7 @@ export type DjangoField =
   | "OptionalEmailField"
   | "OptionalURLField"
   | "LimitedDecimalField"
+  | "LimitedIntegerField"
   | "OptionalLimitedDecimalField"
   | "StringArrayField"
   | "NumberArrayField"
@@ -273,6 +274,7 @@ export const djangoToJsType: Record<DjangoField, JsType> = {
   OptionalEmailField: "string",
   OptionalURLField: "string",
   LimitedDecimalField: "number",
+  LimitedIntegerField: "number",
   OptionalLimitedDecimalField: "number",
   StringArrayField: "string[]",
   NumberArrayField: "number[]",
