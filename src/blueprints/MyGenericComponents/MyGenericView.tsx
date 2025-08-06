@@ -20,10 +20,10 @@ import { GenericViewProps } from "./MyGenericProps";
 import { Related } from "../../api";
 import { IStore } from "../../api/GenericStore";
 export const useViewValues = <
-  U extends Object & { id?: number | string | null },
+  U extends Object & { id: number | string | null },
   T extends { $view: Record<string, any> }
 >(
-  settingStore: IStore,
+  settingStore: IStore<U>,
   name: string,
   obj: T,
   graphs: GraphType[] = ["pie", "line"]

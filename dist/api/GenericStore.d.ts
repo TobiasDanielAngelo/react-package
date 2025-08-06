@@ -167,7 +167,9 @@ export declare function MyStore<T extends KeystoneModel<{
     latestParam: string;
     countToUpdate: number;
 };
-export type IStore = InstanceType<ReturnType<typeof MyStore>>;
+export type IStore<U extends {
+    id: number | string;
+}, T extends KeystoneModel<U> = KeystoneModel<U>> = InstanceType<ReturnType<typeof MyStore<T>>>;
 export declare const functionBinder: (item: any) => void;
 type CamelCase<S extends string> = S extends `${infer F}${infer R}` ? `${Lowercase<F>}${R}` : S;
 export declare function storesToProps<T extends Record<string, new (...args: any[]) => any>>(classes: T): {

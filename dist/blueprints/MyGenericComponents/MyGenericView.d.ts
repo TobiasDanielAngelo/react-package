@@ -5,10 +5,10 @@ import { GenericViewProps } from "./MyGenericProps";
 import { Related } from "../../api";
 import { IStore } from "../../api/GenericStore";
 export declare const useViewValues: <U extends Object & {
-    id?: number | string | null;
+    id: number | string | null;
 }, T extends {
     $view: Record<string, any>;
-}>(settingStore: IStore, name: string, obj: T, graphs?: GraphType[]) => {
+}>(settingStore: IStore<U>, name: string, obj: T, graphs?: GraphType[]) => {
     pageDetails: PaginatedDetails;
     setPageDetails: import("react").Dispatch<import("react").SetStateAction<PaginatedDetails>>;
     params: URLSearchParams;
