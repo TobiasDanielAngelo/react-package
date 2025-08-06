@@ -39,9 +39,7 @@ export function MyStore(ModelClass, baseURL, slug, resetOnFetch) {
     };
     @model(`myApp/${slug}Store`)
     class GenericStore extends Model(props) {
-        onInit() {
-            super.onInit();
-        }
+        onInit() { }
         onAttachedToRootStore() { }
         @computed
         get allItems() {

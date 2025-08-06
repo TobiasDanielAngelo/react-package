@@ -77,28 +77,6 @@ export function MyModel<TProps extends ModelProps, TView>(
   >;
 }
 
-// type PublicMethodNames<T> = {
-//   [K in keyof T]: T[K] extends Function
-//     ? K extends string
-//       ? T extends { [P in K]: T[K] } // filters out protected/private
-//         ? K
-//         : never
-//       : never
-//     : never;
-// }[keyof T];
-
-// type PublicMethods<T> = Pick<T, PublicMethodNames<T>>;
-
-// type PublicKeys<T> = {
-//   [K in keyof T]: T[K] extends (...args: any[]) => any ? K : T[K] extends object ? K : never;
-// }[keyof T];
-
-// type PublicMembers<T> = Pick<T, PublicKeys<T>>;
-
-// type PublicFieldsAndMethods<T> = {
-//   [K in keyof T as T[K] extends Function ? K : T[K] extends object ? K : never]: T[K];
-// };
-
 type EverythingPublic<T> = Pick<
   T,
   {
@@ -145,9 +123,7 @@ export function MyStore<
 
   @model(`myApp/${slug}Store`)
   class GenericStore extends Model(props) {
-    onInit() {
-      super.onInit();
-    }
+    onInit() {}
 
     onAttachedToRootStore() {}
 
